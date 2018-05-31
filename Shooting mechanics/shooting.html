@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<head>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+
+<div class="target" id="one"></div>
+<div class="target" id="two"></div>
+<div class="target" id="three"></div>
+<div class="target" id="four"></div>
+<div class="target" id="five"></div>
+
+<div id="magazine">
+
+</div>
+
+<img src="http://pngimg.com/uploads/scope/scope_PNG13068.png">
+</body>
+<style>
+body, img{
+  cursor: none;
+  overflow: hidden;
+}
+
+img{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+
+.target{
+  z-index: 5;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+}
+
+#one{
+  background: red;
+  top: 25%;
+  left: 12%;
+}
+
+#two{
+  background: blue;
+  top: 5%;
+  left: 49%;
+}
+
+#three{
+  background: green;
+  bottom: 20%;
+  left: 55%;
+}
+
+#four{
+  background: yellow;
+  top: 5%;
+  right: 12%;
+}
+
+#five{
+  background: purple;
+  bottom: 25%;
+  right: 12%;
+}
+
+#magazine{
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+.bullets{
+  display: inline-block;
+  margin-right: 5px;
+  height: 25px;
+  width: 10px;
+  background: gold;
+  border-bottom-left-radius: 2pc;
+  border-bottom-right-radius: 2pc;
+}
+
+</style>
+
+<script>
+
+  const sniperFire = new Audio("sniper.mp3");
+  sniperFire.volume = 0.5;
+
+/* Scope Image follows mouse */
+$(document).on('mousemove', function(e){
+    $('img').css({
+       left:  e.pageX,
+       top:   e.pageY
+    });
+});
+
+// Reloading = Filling the array of bullets with new values
+
+let bullets = [1,2,3,4,5];
+
+// probaj neku funkciju i storeBullets izbaci iz funkcije
+
+/* Array of bullets */  
+
+
+/* Show bullets in magazine */
+let storeBullets = '';
+for (var i = 0; i < bullets.length; i++) {
+storeBullets += '<div class="bullets"></div>'
+}
+$("#magazine").html(storeBullets); 
+
+/* Shooting and removing bullets */
+
+
+$("body").click(() => {
+
+  if (bullets.length == 0) {
+    console.log("Out of ammo");
+  return;
+}
+sniperFire.pause();
+sniperFire.currentTime = 0;
+sniperFire.play();
+
+    bullets.pop(); // removing bullets from an array
+  console.log(bullets);
+  
+/*  Put what's left into magazine */
+  let storeBullets = '';
+for (var i = 0; i < bullets.length; i++) {
+storeBullets += '<div class="bullets"></div>'
+}
+$("#magazine").html(storeBullets); //
+
+// Disables mouse click
+$("body").css({
+  pointerEvents: "none",
+  cursor: "none !important"
+});
+// console.log("Preparing");
+
+// Enables mouse click after n seconds
+setTimeout(() => {
+
+$("body").css({
+  pointerEvents: "auto",
+  cursor: "none !important"
+})
+if (bullets.length != 0) {
+  console.log("Ready to fire");
+}
+
+}, 2000);
+
+
+});
+
+
+
+
+
+/* Disable mouse dragging */ 
+$('body').mousedown( () => {
+    return false;
+  }
+    );
+
+
+/* Removing div */
+$(".target").click(function() {
+  if (bullets.length == 0) {
+  return;
+}
+$(this).fadeOut();
+console.log("Target down!");
+
+});
+
+</script>
+
+</head>
