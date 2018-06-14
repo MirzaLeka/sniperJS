@@ -10,19 +10,19 @@
 <div class="target" id="four"></div>
 <div class="target" id="five"></div>
 
-<div id="magazine">
+<div id="magazine"></div>
 
-</div>
+<h1 id="allBullets"></h1>
 
-<img src="http://pngimg.com/uploads/scope/scope_PNG13068.png">
+<img id="sniperAim" src="http://pngimg.com/uploads/scope/scope_PNG13068.png">
 </body>
 <style>
-body, img{
+body, #sniperAim{
   cursor: none;
   overflow: hidden;
 }
 
-img{
+#sniperAim{
   position: absolute;
   height: 100px;
   width: 100px;
@@ -73,26 +73,33 @@ img{
   right: 5%;
 }
 
+#allBullets{
+  position: absolute;
+  bottom: 5%;
+  right: 2%;
+}
+
 .bullets{
   display: inline-block;
   margin-right: 5px;
-  height: 25px;
-  width: 10px;
-  background: gold;
-  border-bottom-left-radius: 2pc;
-  border-bottom-right-radius: 2pc;
 }
 
 </style>
 
 <script>
 
+
+
+  const bulletsSVG = `<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTcuMS4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDI5NyAyOTciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI5NyAyOTc7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNjRweCIgaGVpZ2h0PSI2NHB4Ij4KPGc+Cgk8cGF0aCBkPSJNMjE0LjE2NywxMDAuNjY3QzIxNC4xNjcsNjQuMDMyLDE4NS4zMDIsMCwxNDguNjY3LDBoLTAuMzM0Yy0zNi42MzUsMC02Ny4xNjYsNjQuMDMyLTY3LjE2NiwxMDAuNjY3VjI0N2gxMzNWMTAwLjY2N3ogICAgTTEzNC45MjYsNTcuODZjLTguOTI0LDE1Ljc3OS0xMy43NTksMzMuNDc4LTEzLjc1OSw0Mi44MDdWMjE2YzAsNC40MTgtMy41ODIsOC04LDhzLTgtMy41ODItOC04VjEwMC42NjcgICBjMC0xMS40MzksNS4wMS0zMS41NDgsMTUuODMxLTUwLjY4NGMyLjE3Ni0zLjg0NSw3LjA1NC01LjE5OCwxMC45MDItMy4wMjVDMTM1Ljc0Nyw0OS4xMzMsMTM3LjEwMSw1NC4wMTQsMTM0LjkyNiw1Ny44NnoiIGZpbGw9IiNmZmQ3MDAiLz4KCTxwYXRoIGQ9Ik0yMjIuNSwyNjVoLTE0OGMtOC44MzcsMC0xNiw3LjE2My0xNiwxNnM3LjE2MywxNiwxNiwxNmgxNDhjOC44MzcsMCwxNi03LjE2MywxNi0xNlMyMzEuMzM3LDI2NSwyMjIuNSwyNjV6IiBmaWxsPSIjZmZkNzAwIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg=="/>`;
+
   const sniperFire = new Audio("sniper.mp3");
+  const noAmmo = new Audio("noAmmo.mp3");
   sniperFire.volume = 0.5;
+  noAmmo.volume = 1;
 
 /* Scope Image follows mouse */
 $(document).on('mousemove', function(e){
-    $('img').css({
+    $('#sniperAim').css({
        left:  e.pageX,
        top:   e.pageY
     });
@@ -101,6 +108,9 @@ $(document).on('mousemove', function(e){
 // Reloading = Filling the array of bullets with new values
 
 let bullets = [1,2,3,4,5];
+var completeArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+$("#allBullets").html(completeArray.length);
 
 // probaj neku funkciju i storeBullets izbaci iz funkcije
 
@@ -110,7 +120,7 @@ let bullets = [1,2,3,4,5];
 /* Show bullets in magazine */
 let storeBullets = '';
 for (var i = 0; i < bullets.length; i++) {
-storeBullets += '<div class="bullets"></div>'
+storeBullets += bulletsSVG;
 }
 $("#magazine").html(storeBullets); 
 
@@ -119,21 +129,49 @@ $("#magazine").html(storeBullets);
 
 $("body").click(() => {
 
+    if (bullets.length == 0 && completeArray.length == 0) {
+    console.log("Out of ammo");
+    noAmmo.pause();
+    noAmmo.currentTime = 0;
+    noAmmo.play(); 
+  return;
+}
+
+    bullets.pop(); // removing bullets from an array
+  console.log(bullets);
+ 
+
+  if (bullets.length == 0) {
+      console.log("reloading");
+
+      if (completeArray.length != 0) { 
+      for (var i = 0; i < 5; i++) {
+  bullets.push(completeArray[i]);
+  completeArray.pop();
+}
+$("#allBullets").html(completeArray.length); 
+
+      }
+    }
+
+  
+/*
   if (bullets.length == 0) {
     console.log("Out of ammo");
   return;
 }
+*/
+
+
 sniperFire.pause();
 sniperFire.currentTime = 0;
-sniperFire.play();
+sniperFire.play(); 
 
-    bullets.pop(); // removing bullets from an array
-  console.log(bullets);
-  
+   
 /*  Put what's left into magazine */
   let storeBullets = '';
 for (var i = 0; i < bullets.length; i++) {
-storeBullets += '<div class="bullets"></div>'
+storeBullets += bulletsSVG;
 }
 $("#magazine").html(storeBullets); //
 
@@ -155,7 +193,7 @@ if (bullets.length != 0) {
   console.log("Ready to fire");
 }
 
-}, 2000);
+}, 1000);
 
 
 });
